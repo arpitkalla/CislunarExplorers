@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
-#include <wiringPiSPI.h>
+#include "wiringPiSPI.h"
 #include <unistd.h> //usleep
 
 

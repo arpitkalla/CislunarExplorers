@@ -6,7 +6,39 @@
 //
 //
 
+#include <Python.h>
 #include "AX5043_SPI.h"
+
+static char module_docstring[] =
+    "This module provides an interface for AX5043 Antenna.";
+
+static char writePacket_docstring[] =
+    "Write packets to send.";
+
+static PyObject *AX5043_writePacket(PyObject *self, PyObject *args);
+static PyObject *AX5043_writePacket2(PyObject *self, PyObject *args);
+static PyObject *AX5043_writePacket3(PyObject *self, PyObject *args);
+static PyObject *AX5043_writePacket4(PyObject *self, PyObject *args);
+
+static PyMethodDef module_methods[] = {
+    {"writePacket", AX5043_writePacket, METH_VARARGS, writePacket_docstring},
+    {"writePacket2", AX5043_writePacket2, METH_VARARGS, writePacket_docstring},
+    {"writePacket3", AX5043_writePacket3, METH_VARARGS, writePacket_docstring},
+    {"writePacket4", AX5043_writePacket4, METH_VARARGS, writePacket_docstring},
+    {NULL, NULL, 0, NULL}
+};
+
+PyMODINIT_FUNC init_AX5043(void)
+{
+    PyObject *m = Py_InitModule3("_AX5043", module_methods, module_docstring);
+    if (m == NULL)
+        return;
+}
+
+static PyObject *AX5043_writePacket(PyObject *self, PyObject *args){}
+static PyObject *AX5043_writePacket2(PyObject *self, PyObject *args){}
+static PyObject *AX5043_writePacket3(PyObject *self, PyObject *args){}
+static PyObject *AX5043_writePacket4(PyObject *self, PyObject *args){}
 
 struct radio_settings psk125_reg_settings = {
     .MODULATION         = { .address=AX_REG_MODULATION, 		.data=0x04},//PSK
@@ -160,6 +192,7 @@ struct radio_settings psk125_reg_settings = {
 };
 
 FILE *fp;
+
 
 void ax5043_readAllReg(){
     
