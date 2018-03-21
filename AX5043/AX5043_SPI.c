@@ -15,18 +15,14 @@ static char module_docstring[] =
 static char writePacket_docstring[] =
     "Write packets to send.";
 
-static PyObject *AX5043_writePacket(PyObject *self, PyObject *args);
-static PyObject *AX5043_writePacket2(PyObject *self, PyObject *args);
-static PyObject *AX5043_writePacket3(PyObject *self, PyObject *args);
-static PyObject *AX5043_writePacket4(PyObject *self, PyObject *args);
+static PyObject *ax5043_writeReg(PyObject *self, PyObject *args);
 
 static PyMethodDef module_methods[] = {
-    {"writePacket", AX5043_writePacket, METH_VARARGS, writePacket_docstring},
-    {"writePacket2", AX5043_writePacket2, METH_VARARGS, writePacket_docstring},
-    {"writePacket3", AX5043_writePacket3, METH_VARARGS, writePacket_docstring},
-    {"writePacket4", AX5043_writePacket4, METH_VARARGS, writePacket_docstring},
+    {"writeReg", ax5043_writeReg, METH_VARARGS, writePacket_docstring},
     {NULL, NULL, 0, NULL}
 };
+
+
 
 PyMODINIT_FUNC init_AX5043(void)
 {
@@ -35,10 +31,12 @@ PyMODINIT_FUNC init_AX5043(void)
         return;
 }
 
-static PyObject *AX5043_writePacket(PyObject *self, PyObject *args){}
-static PyObject *AX5043_writePacket2(PyObject *self, PyObject *args){}
-static PyObject *AX5043_writePacket3(PyObject *self, PyObject *args){}
-static PyObject *AX5043_writePacket4(PyObject *self, PyObject *args){}
+static PyObject *ax5043_writeReg(PyObject *self, PyObject *args){
+    uint16_t addr, unsigned char value;
+     if (!PyArg_ParseTuple(args, "IB", &addr, &value))
+        return NULL;
+    ax5043_writeReg(addr,value);
+}
 
 struct radio_settings psk125_reg_settings = {
     .MODULATION         = { .address=AX_REG_MODULATION, 		.data=0x04},//PSK
@@ -412,9 +410,7 @@ void ax5043_writePacket3() {
 		ax5043_writeReg(AX_REG_FIFODATA,0xFF);    
 		ax5043_writeReg(AX_REG_FIFODATA,0x00);
 		ax5043_writeReg(AX_REG_FIFODATA,0x11);    
-		ax5043_writeReg(AX_REG_FIFODATA,0x22);  
-
-    
+		ax5043_writeReg(AX_REG_FIFODATA,0x22);   
 }  
 
 void ax5043_writePacket4() {
