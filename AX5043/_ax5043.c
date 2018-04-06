@@ -1,7 +1,7 @@
 
 #include <Python.h>
 #include <numpy/arrayobject.h>
-#include "chi2.h"
+#include "AX5043_SPI.h"
 
 static char module_docstring[] =
     "This module provides an interface for AX5043 Antenna.";
