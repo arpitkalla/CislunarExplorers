@@ -6,7 +6,7 @@
 static char module_docstring[] =
     "This module provides an interface for AX5043 Antenna.";
 
-static char ax5043_write_docstring[] =
+static char ax5043_write_docstring[] = 
     "Write packets to AX_REG_FIFODATA register.";
 
 static PyObject *ax5043_ax5043_write(PyObject *self, PyObject *args);
