@@ -1,6 +1,5 @@
 
 #include <Python.h>
-#include <numpy/arrayobject.h>
 #include "AX5043_SPI.h"
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 
