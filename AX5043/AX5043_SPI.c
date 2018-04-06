@@ -15,6 +15,12 @@ static char module_docstring[] =
 static char writeReg_docstring[] =
     "Write packets to a register.";
 
+static PyObject *ax_5043_ax5043_writeReg(PyObject *self, PyObject *args){
+    uint16_t addr, unsigned char value;
+     if (!PyArg_ParseTuple(args, "IB", addr, value))
+        return NULL;
+    ax5043_writeReg(addr,value);
+}
 
 static PyMethodDef module_methods[] = {
     {"writeReg", ax5043_ax5043_writeReg, METH_VARARGS, writePacket_docstring},
@@ -28,12 +34,7 @@ PyMODINIT_FUNC init_ax5043(void)
         return;
 }
 
-static PyObject *ax_5043_ax5043_writeReg(PyObject *self, PyObject *args){
-    uint16_t addr, unsigned char value;
-     if (!PyArg_ParseTuple(args, "IB", addr, value))
-        return NULL;
-    ax5043_writeReg(addr,value);
-}
+
 
 struct radio_settings psk125_reg_settings = {
     .MODULATION         = { .address=AX_REG_MODULATION, 		.data=0x04},//PSK
