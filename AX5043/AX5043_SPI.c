@@ -6,34 +6,7 @@
 //
 //
 
-#include <Python.h>
 #include "AX5043_SPI.h"
-
-static char module_docstring[] =
-    "This module provides an interface for AX5043 Antenna.";
-
-static char writeReg_docstring[] =
-    "Write packets to a register.";
-
-static PyObject *ax_5043_ax5043_writeReg(PyObject *self, PyObject *args){
-    uint16_t addr, unsigned char value;
-     if (!PyArg_ParseTuple(args, "IB", addr, value))
-        return NULL;
-    ax5043_writeReg(addr,value);
-}
-
-static PyMethodDef module_methods[] = {
-    {"writeReg", ax5043_ax5043_writeReg, METH_VARARGS, writePacket_docstring},
-    {NULL, NULL, 0, NULL}
-};
-
-PyMODINIT_FUNC init_ax5043(void)
-{
-    PyObject *m = Py_InitModule3("_AX5043", module_methods, module_docstring);
-    if (m == NULL)
-        return;
-}
-
 
 
 struct radio_settings psk125_reg_settings = {
