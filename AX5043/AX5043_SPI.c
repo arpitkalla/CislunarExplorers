@@ -195,6 +195,28 @@ void ax5043_writeAllReg(){
     }
 }
 
+void ax5043_write(unsigned char value) {
+    uint16_t addr = AX_REG_FIFODATA;
+    unsigned char data[2];
+    unsigned char longData[3];
+    
+    if (addr < 0x70) {
+
+        data[0] = addr | 0x80;
+        data[1] = value;
+        wiringPiSPIDataRW(SPI_DEVICE, data, 2);
+        usleep(5);
+    
+    } else {
+        
+        longData[0] = (addr >> 8) | 0xF0;
+        longData[1] = addr & 0xFF;
+        longData[2] = value;
+        
+        wiringPiSPIDataRW(SPI_DEVICE, longData, 3);
+    }
+}
+
 void ax5043_writeReg(uint16_t addr, unsigned char value) {
 	unsigned char data[2];
 	unsigned char longData[3];
