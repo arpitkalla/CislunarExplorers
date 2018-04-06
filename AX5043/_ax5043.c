@@ -10,9 +10,9 @@ static char module_docstring[] =
 static char ax5043_writeReg_docstring[] =
     "Write packets to a register.";
 
-static PyObject *ax5043_ax5043_writeReg(PyObject *self, PyObject *args);
+static PyObject *ax5043_writeReg(PyObject *self, PyObject *args);
 
-static PyObject *ax5043_ax5043_writeReg(PyObject *self, PyObject *args){
+static PyObject *ax5043_writeReg(PyObject *self, PyObject *args){
     uint16_t addr;
     unsigned char value;
      if (!PyArg_ParseTuple(args, "IB", &addr, &value))
@@ -28,7 +28,7 @@ static PyObject *ax5043_ax5043_writeReg(PyObject *self, PyObject *args){
 
 
 static PyMethodDef module_methods[] = {
-    {"writeReg", ax_5043_ax5043_writeReg, METH_VARARGS, ax5043_writeReg_docstring},
+    {"writeReg", ax5043_writeReg, METH_VARARGS, ax5043_writeReg_docstring},
     {NULL, NULL, 0, NULL}
 };
 
