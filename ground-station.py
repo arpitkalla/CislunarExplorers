@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from commands import Command
 import transmission
 
@@ -6,7 +6,13 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    return "HelloWorld"
+
+@app.route('/index', methods=['GET', 'POST'])
+def index():
+   
+        
+    return render_template("index.html")
 
 # @app.route("/transmit")
 # def transmit():
@@ -14,8 +20,13 @@ def hello():
 
 @app.route('/transmit', methods=['POST'])
 def transmit():
+
+    if request.method == 'POST':
+        result = request.form
+        print(result)
+
     print("Transmitting...")
-    request_json = request.get_json()
+    request_json = request.form
     print(request_json)
     for k, v in request_json.items():
 
@@ -35,3 +46,8 @@ def transmit():
     	transmission.write_packets(command_line)
 
     return "Done"
+
+
+
+if __name__ == '__main__':
+    app.run(debug=True) 
