@@ -16,6 +16,7 @@ def index():
 @app.route('/commands', methods=['GET'])
 def get_commands():
     return jsonify("Command" = Command.__members__)
+
 # @app.route("/transmit")
 # def transmit():
 # 	transmission.write_packets("HelloWorld")
