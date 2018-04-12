@@ -9,11 +9,13 @@ def hello():
     return "HelloWorld"
 
 @app.route('/index', methods=['GET', 'POST'])
-def index():
-   
-        
+def index():   
     return render_template("index.html")
 
+
+@app.route('/commands', methods=['GET'])
+def get_commands():
+    return jsonify("Command" = Command.__members__)
 # @app.route("/transmit")
 # def transmit():
 # 	transmission.write_packets("HelloWorld")
