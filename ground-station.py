@@ -1,8 +1,11 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 from commands import Command
+import json
 import transmission
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+CORS(app, support_credentials=True)
 
 @app.route("/")
 def hello():
@@ -14,8 +17,11 @@ def index():
 
 
 @app.route('/commands', methods=['GET'])
+@cross_origin(supports_credentials=True)
 def get_commands():
-    return jsonify("Command" = Command.__members__)
+    print("Getting Commands...")
+    cmd = [name for name, member in Command.__members__.items()]
+    return jsonify({"commands":cmd})
 
 # @app.route("/transmit")
 # def transmit():
@@ -53,4 +59,4 @@ def transmit():
 
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run( port=5000,debug=True) 
