@@ -20,11 +20,15 @@ static char ax5043_set_reg_rx_docstring[] =
 static PyObject *ax5043_ax5043_write(PyObject *self, PyObject *args);
 static PyObject *ax5043_ax5043_write_reg(PyObject *self, PyObject *args);
 static PyObject *ax5043_ax5043_read_reg(PyObject *self, PyObject *args);
+static PyObject *ax5043_ax5043_set_reg_tx(PyObject *self, PyObject *args);
+static PyObject *ax5043_ax5043_set_reg_rx(PyObject *self, PyObject *args);
 
 static PyMethodDef module_methods[] = {
     {"write", ax5043_ax5043_write, METH_VARARGS, ax5043_write_docstring},
     {"write_reg", ax5043_ax5043_write_reg, METH_VARARGS, ax5043_write_reg_docstring},
     {"read_reg", ax5043_ax5043_read_reg, METH_VARARGS, ax5043_read_reg_docstring},
+    {"set_reg_tx", ax5043_ax5043_set_reg_tx, METH_VARARGS, ax5043_set_reg_tx_docstring},
+    {"set_reg_rx", ax5043_ax5043_set_reg_rx, METH_VARARGS, ax5043_set_reg_rx_docstring},
     {NULL, NULL, 0, NULL}
 };
 
@@ -78,4 +82,14 @@ static PyObject *ax5043_ax5043_read_reg(PyObject *self, PyObject *args){
 
     PyObject *ret = Py_BuildValue("c", char);
     return ret;
+}
+
+static PyObject *ax5043_ax5043_set_reg_tx(PyObject *self, PyObject *args){
+    ax5043_set_reg_tx();
+    return NULL;
+}
+
+static PyObject *ax5043_ax5043_set_reg_rx(PyObject *self, PyObject *args){
+    ax5043_set_reg_rx();
+    return NULL;
 }
