@@ -8,12 +8,23 @@ static char module_docstring[] =
 
 static char ax5043_write_docstring[] = 
     "Write packets to AX_REG_FIFODATA register.";
+static char ax5043_write_reg_docstring[] = 
+    "Write packets to the specified register.";
+static char ax5043_read_reg_docstring[] = 
+    "Read packets from a specified register.";
+static char ax5043_set_reg_tx_docstring[] = 
+    "Setting up AX5043 to TX mode.";
+static char ax5043_set_reg_rx_docstring[] = 
+    "Setting up AX5043 to RX mode.";
 
 static PyObject *ax5043_ax5043_write(PyObject *self, PyObject *args);
-
+static PyObject *ax5043_ax5043_write_reg(PyObject *self, PyObject *args);
+static PyObject *ax5043_ax5043_read_reg(PyObject *self, PyObject *args);
 
 static PyMethodDef module_methods[] = {
-    {"write_reg", ax5043_ax5043_write, METH_VARARGS, ax5043_write_docstring},
+    {"write", ax5043_ax5043_write, METH_VARARGS, ax5043_write_docstring},
+    {"write_reg", ax5043_ax5043_write_reg, METH_VARARGS, ax5043_write_reg_docstring},
+    {"read_reg", ax5043_ax5043_read_reg, METH_VARARGS, ax5043_read_reg_docstring},
     {NULL, NULL, 0, NULL}
 };
 
@@ -48,3 +59,23 @@ static PyObject *ax5043_ax5043_write(PyObject *self, PyObject *args){
     return ret;
 }
 
+static PyObject *ax5043_ax5043_write_reg(PyObject *self, PyObject *args){
+    uint16_t addr;
+    unsigned char value;
+     if (!PyArg_ParseTuple(args, "HB",&addr, &value))
+        return NULL;
+    ax5043_write_reg(addr,value);
+
+    PyObject *ret = Py_BuildValue("B", value);
+    return ret;
+}
+
+static PyObject *ax5043_ax5043_read_reg(PyObject *self, PyObject *args){
+    uint16_t addr;
+     if (!PyArg_ParseTuple(args, "H",&addr))
+        return NULL;
+    char ch = ax5043_read_reg(addr);
+
+    PyObject *ret = Py_BuildValue("c", char);
+    return ret;
+}
