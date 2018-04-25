@@ -51,6 +51,8 @@ class AX5043():
 		_ax5043.write_reg(AX_REG_PWRMODE,PWRMODE_FULLTX)
 		usleep(100)
 
+		_ax5043.write_preamble();
+
 		# Start Writing 
 		self.write_packets(data)
 
